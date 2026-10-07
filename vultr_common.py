@@ -1,9 +1,14 @@
 import os
+import socket
 import sys
 from pathlib import Path
 
 import requests
+import urllib3.util.connection as urllib3_connection
 from dotenv import load_dotenv
+
+# Vultr Access Control thường chỉ whitelist IPv4; máy dual-stack hay gọi API qua IPv6.
+urllib3_connection.allowed_gai_family = lambda: socket.AF_INET
 
 ENV_FILE = Path(__file__).with_name(".env")
 load_dotenv(ENV_FILE)

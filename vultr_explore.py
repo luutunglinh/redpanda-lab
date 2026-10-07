@@ -4,6 +4,9 @@ import sys
 
 from vultr_common import call
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
 REGION = "sgp"
 PLAN = "vc2-2c-4gb"
 OS_NAME = "Ubuntu 24.04 LTS x64"

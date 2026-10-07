@@ -1,7 +1,11 @@
 """Tạo SSH key, firewall và VM Ubuntu 24.04 cho lab. Chạy lại nhiều lần không tạo trùng."""
 
+import sys
 import time
 from pathlib import Path
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
 
 import requests
 from dotenv import set_key
@@ -88,7 +92,7 @@ def ensure_instance(ssh_key_id, firewall_id):
 
 
 def main():
-    my_ip = requests.get("https://api.ipify.org", timeout=10).text.strip()
+    my_ip = requests.get("https://api4.ipify.org", timeout=10).text.strip()
     print(f"IP của bạn: {my_ip}")
     inst = ensure_instance(ensure_ssh_key(), ensure_firewall(my_ip))
     set_key(str(ENV_FILE), "VM_IP", inst["main_ip"])
